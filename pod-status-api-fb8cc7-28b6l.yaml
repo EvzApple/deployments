@@ -1,0 +1,120 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2021-11-19T19:30:29Z"
+  generateName: status-api-fb8cc7-
+  labels:
+    app: status-api
+    pod-template-hash: fb8cc7
+  name: status-api-fb8cc7-28b6l
+  namespace: learning
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: status-api-fb8cc7
+    uid: c30e5228-ccda-4309-8f4b-3ba7cf012b3d
+  resourceVersion: "5767"
+  uid: 9534bb60-b292-491e-97f3-8cff529f7e19
+spec:
+  containers:
+  - image: jeffrygonzalez/status-api-nov-2011:v1
+    imagePullPolicy: IfNotPresent
+    name: status-api
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 500m
+        memory: 128Mi
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-74jlk
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-74jlk
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2021-11-19T19:30:29Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2021-11-19T19:30:29Z"
+    message: 'containers with unready status: [status-api]'
+    reason: ContainersNotReady
+    status: "False"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2021-11-19T19:30:29Z"
+    message: 'containers with unready status: [status-api]'
+    reason: ContainersNotReady
+    status: "False"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2021-11-19T19:30:29Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - image: jeffrygonzalez/status-api-nov-2011:v1
+    imageID: ""
+    lastState: {}
+    name: status-api
+    ready: false
+    restartCount: 0
+    started: false
+    state:
+      waiting:
+        message: Back-off pulling image "jeffrygonzalez/status-api-nov-2011:v1"
+        reason: ImagePullBackOff
+  hostIP: 172.25.235.66
+  phase: Pending
+  podIP: 172.17.0.3
+  podIPs:
+  - ip: 172.17.0.3
+  qosClass: Guaranteed
+  startTime: "2021-11-19T19:30:29Z"
